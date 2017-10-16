@@ -1,4 +1,4 @@
-def powerOfN(x=2,n=3):
+cddef powerOfN(x=2,n=3):
     """this function is completely useless, it just calculates x^n)"""
     y = x**n
     return y
