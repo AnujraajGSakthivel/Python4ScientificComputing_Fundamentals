@@ -2,20 +2,20 @@ def WallCalc(wallLayersSeries,wallLayersParallel,fractionInsulation,Matlib):
     ConvectionLayers=['InsideConv','outerConvWinter']
     totalSeriesRes=0.000
     for everyL in wallLayersSeries:
-        if(everyL['length']==Material_Library[everyL['material']]['length']):
-            i=Material_Library[everyL['material']]['R']
+        if(everyL['length']==Matlib[everyL['material']]['length']):
+            i=Matlib[everyL['material']]['R']
         else:
-            i=Material_Library[everyL['material']]['R']*(everyL['length']/Material_Library[everyL['material']]['length'])
+            i=(Matlib[everyL['material']]['R'])*(everyL['length'])/(Matlib[everyL['material']]['length'])
         totalSeriesRes+=i
     for a in ConvectionLayers:
-        totalSeriesRes+=Material_Library[a]['R']
+        totalSeriesRes+=Matlib[a]['R']
     R=0.00
     z=0.00
     for every in wallLayersParallel:
-        if(every['length']==Material_Library[every['material']]['length']):
-            j=Material_Library[every['material']]['R']
+        if(every['length']==Matlib[every['material']]['length']):
+            j=Matlib[every['material']]['R']
         else:
-            j=Material_Library[every['material']]['R']*(every['length']/Material_Library[every['material']]['length'])
+            j=Matlib[every['material']]['R']*(every['length']/Matlib[every['material']]['length'])
         y=totalSeriesRes+j
         z=(1/(y))
         if(every['material']=='glassfiber'):
@@ -24,16 +24,16 @@ def WallCalc(wallLayersSeries,wallLayersParallel,fractionInsulation,Matlib):
             R+=((1-fractionInsulation)*z)
     return R
 
-def doorcalc(door):
+def doorOderRoofcalc(ABC,Matlib):
     ConvectionLayers=['InsideConv','outerConvWinter']
-    Door_R=0.00
+    Res=0.00
     for a in ConvectionLayers:
-        Door_R+=Material_Library[a]['R']
-    for everyL in door:
-        if(everyL['length']==Material_Library[everyL['material']]['length']):
-            i=Material_Library[everyL['material']]['R']
+        Res+=Matlib[a]['R']
+    for everyL in ABC:
+        if(everyL['length']==Matlib[everyL['material']]['length']):
+            i=Matlib[everyL['material']]['R']
         else:
-            i=Material_Library[everyL['material']]['R']*(everyL['length']/Material_Library[everyL['material']]['length'])
-        Door_R+=i
-    Door_U=(1.00/Door_R)
-    return Door_U
+            i=Matlib[everyL['material']]['R']*(everyL['length']/Matlib[everyL['material']]['length'])
+        Res+=i
+    Value_U=(1.00/Res)
+    return Value_U
